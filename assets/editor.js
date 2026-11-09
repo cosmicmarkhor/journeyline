@@ -30,6 +30,12 @@
 
 	Object.keys( window.JOURNEYLINE_BLOCKS || {} ).forEach( function ( slug ) {
 		var def = window.JOURNEYLINE_BLOCKS[ slug ];
+		var lab = function ( key ) {
+			return ( def.labels && def.labels[ key ] ) || labels[ key ] || key;
+		};
+		var opts = function ( key ) {
+			return ( def.choices && def.choices[ key ] ) || choices[ key ];
+		};
 		wp.blocks.registerBlockType( 'journeyline/' + slug, {
 			edit: function ( props ) {
 				var a = props.attributes;
@@ -40,16 +46,16 @@
 						o[ key ] = v;
 						props.setAttributes( o );
 					};
-					if ( choices[ key ] ) {
-						return el( c.SelectControl, { key: key, label: labels[ key ] || key, value: a[ key ], options: choices[ key ], onChange: set, __nextHasNoMarginBottom: true } );
+					if ( opts( key ) ) {
+						return el( c.SelectControl, { key: key, label: lab( key ), value: a[ key ], options: opts( key ), onChange: set, __nextHasNoMarginBottom: true } );
 					}
 					if ( 'boolean' === type ) {
-						return el( c.ToggleControl, { key: key, label: labels[ key ] || key, checked: !! a[ key ], onChange: set, __nextHasNoMarginBottom: true } );
+						return el( c.ToggleControl, { key: key, label: lab( key ), checked: !! a[ key ], onChange: set, __nextHasNoMarginBottom: true } );
 					}
 					if ( 'number' === type ) {
-						return el( c.RangeControl, { key: key, label: labels[ key ] || key, value: a[ key ], min: 0, max: 48, onChange: set, __nextHasNoMarginBottom: true } );
+						return el( c.RangeControl, { key: key, label: lab( key ), value: a[ key ], min: 0, max: 48, onChange: set, __nextHasNoMarginBottom: true } );
 					}
-					return el( c.TextControl, { key: key, label: labels[ key ] || key, value: a[ key ], onChange: set, __nextHasNoMarginBottom: true } );
+					return el( c.TextControl, { key: key, label: lab( key ), value: a[ key ], onChange: set, __nextHasNoMarginBottom: true } );
 				} );
 				return el(
 					'div',

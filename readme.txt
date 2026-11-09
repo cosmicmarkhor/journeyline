@@ -4,7 +4,7 @@ Tags: travel, tours, trips, departures, itinerary
 Requires at least: 6.7
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.2.0
+Stable tag: 0.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,6 +24,9 @@ Journeyline gives small travel companies everything they need to show their trip
 Journeyline is accessible, translation-ready and collects no data about your visitors.
 
 == Changelog ==
+
+= 0.2.1 =
+* Add-ons can add their own blocks, with their own setting names, beside Journeyline's.
 
 = 0.2.0 =
 * Trip details box: hook, length, price from, activity level, highlights, included and not included, and a day-by-day itinerary you can reorder.

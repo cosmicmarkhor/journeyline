@@ -118,7 +118,7 @@ final class Blocks {
 			);
 			$meta[ $slug ] = array( 'title' => $b['title'], 'attrs' => $b['attrs'] );
 		}
-		wp_add_inline_script( 'journeyline-editor', 'window.JOURNEYLINE_BLOCKS = ' . wp_json_encode( $meta ) . ';', 'before' );
+		wp_add_inline_script( 'journeyline-editor', 'window.JOURNEYLINE_BLOCKS = Object.assign( window.JOURNEYLINE_BLOCKS || {}, ' . wp_json_encode( $meta ) . ' );', 'before' );
 	}
 
 	/**
