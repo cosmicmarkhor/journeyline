@@ -78,6 +78,16 @@ final class Settings {
 	public static function register() {
 		register_setting(
 			self::PAGE,
+			'journeyline_github_token',
+			array(
+				'type'              => 'string',
+				'sanitize_callback' => array( __CLASS__, 'sanitize_token' ),
+				'default'           => '',
+				'show_in_rest'      => false,
+			)
+		);
+		register_setting(
+			self::PAGE,
 			self::OPTION,
 			array(
 				'type'              => 'array',
@@ -110,6 +120,23 @@ final class Settings {
 			update_option( 'journeyline_flush_rewrite', 1 );
 		}
 		return $out;
+	}
+
+	/**
+	 * Keep the saved key when the box is left empty; "remove" clears it.
+	 *
+	 * @param mixed $value Raw value.
+	 * @return string
+	 */
+	public static function sanitize_token( $value ) {
+		$value = trim( (string) $value );
+		if ( '' === $value ) {
+			return (string) get_option( 'journeyline_github_token', '' );
+		}
+		if ( 'remove' === strtolower( $value ) ) {
+			return '';
+		}
+		return preg_replace( '/[^A-Za-z0-9_]/', '', $value );
 	}
 
 	/**
@@ -150,6 +177,13 @@ final class Settings {
 			);
 		}
 		echo '</table>';
+		$has = '' !== (string) get_option( 'journeyline_github_token', '' );
+		echo '<h2>' . esc_html__( 'Updates for add-ons', 'journeyline' ) . '</h2><p>' . esc_html__( 'Paid add-ons update from private GitHub repositories. Paste a read-only GitHub key here so this site can fetch them. It is stored privately in your database and only ever sent to GitHub.', 'journeyline' ) . '</p>';
+		printf(
+			'<table class="form-table" role="presentation"><tr><th scope="row"><label for="journeyline-token">%1$s</label></th><td><input type="password" id="journeyline-token" name="journeyline_github_token" value="" class="regular-text" autocomplete="off" spellcheck="false"><p class="description">%2$s</p></td></tr></table>',
+			esc_html__( 'Read-only GitHub key', 'journeyline' ),
+			$has ? esc_html__( 'A key is saved. Leave this empty to keep it, paste a new one to replace it, or type remove to delete it.', 'journeyline' ) : esc_html__( 'No key saved yet.', 'journeyline' )
+		);
 		submit_button();
 		echo '</form></div>';
 	}

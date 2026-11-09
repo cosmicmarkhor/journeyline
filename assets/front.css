@@ -1,0 +1,111 @@
+/* Journeyline default look: plain, neat and accessible, inheriting the theme's fonts and colours.
+   Themes restyle everything through these variables, or with their own rules. */
+.jl {
+	--jl-gap: 1.25rem;
+	--jl-radius: 8px;
+	--jl-line: color-mix(in srgb, currentColor 16%, transparent);
+	--jl-soft: color-mix(in srgb, currentColor 70%, transparent);
+	--jl-accent: var(--wp--preset--color--primary, currentColor);
+	--jl-chip-bg: color-mix(in srgb, currentColor 8%, transparent);
+	--jl-good: #2f6b3a;
+	--jl-warn: #a33a22;
+}
+.jl [hidden] { display: none !important; }
+.jl-empty { color: var(--jl-soft); }
+.jl-kicker { font-size: .78rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--jl-soft); }
+.jl-chip { display: inline-block; font-size: .78rem; font-weight: 600; padding: .3em .7em; border-radius: 999px; background: var(--jl-chip-bg); }
+.screen-reader-text, .jl-hp { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* trips */
+.jl-filters { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
+.jl-filter { font: inherit; font-size: .92rem; padding: .5em 1em; border-radius: 999px; border: 1px solid var(--jl-line); background: transparent; color: inherit; cursor: pointer; }
+.jl-filter[aria-pressed="true"] { color: inherit; background: var(--jl-chip-bg); border-color: currentColor; font-weight: 600; }
+.jl-count { color: var(--jl-soft); font-size: .9rem; }
+.jl-cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: var(--jl-gap); }
+.jl-card-link { display: grid; gap: .6rem; text-decoration: none; color: inherit; height: 100%; }
+.jl-card-media { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--jl-radius); background: var(--jl-chip-bg); }
+.jl-card-media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s cubic-bezier(.22, 1, .36, 1); }
+.jl-card-link:hover img { transform: scale(1.04); }
+.jl-card-media .jl-chip { position: absolute; left: .75rem; top: .75rem; background: #fff; color: #111; }
+.jl-card-body { display: grid; gap: .35rem; }
+.jl-card-title { font-size: 1.3rem; font-weight: 600; line-height: 1.2; }
+.jl-card-hook { color: var(--jl-soft); }
+.jl-card-meta { display: flex; justify-content: space-between; gap: 1rem; font-size: .92rem; padding-top: .5rem; border-top: 1px dashed var(--jl-line); }
+.jl-price { font-weight: 600; }
+.jl-card-next { font-size: .86rem; color: var(--jl-soft); }
+@media (prefers-reduced-motion: reduce) { .jl-card-media img { transition: none; } }
+
+/* departures */
+.jl-dep-filters { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; margin-bottom: 1rem; }
+.jl-dep-filters select { font: inherit; padding: .5em .8em; border-radius: 999px; border: 1px solid var(--jl-line); background: transparent; color: inherit; }
+.jl-toggle { display: inline-flex; gap: .4rem; align-items: center; }
+.jl-month-title { margin: 1.5rem 0 .5rem; }
+.jl-deps { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--jl-line); }
+.jl-dep { display: grid; grid-template-columns: minmax(7rem, auto) minmax(0, 1fr) minmax(10rem, auto) auto; gap: .5rem 1.25rem; align-items: center; padding: 1rem .25rem; border-bottom: 1px solid var(--jl-line); }
+.jl-dep-date { margin: 0; display: grid; }
+.jl-dep-day { font-size: 1.8rem; line-height: 1; font-weight: 600; }
+.jl-dep-range { font-size: .82rem; color: var(--jl-soft); }
+.jl-dep-trip { display: grid; gap: .15rem; }
+.jl-dep-name { font-weight: 600; font-size: 1.1rem; color: inherit; }
+.jl-dep-where, .jl-dep-price, .jl-dep-note { font-size: .9rem; color: var(--jl-soft); }
+.jl-dep-status { display: grid; gap: .35rem; justify-items: start; }
+.jl-badge { display: inline-flex; align-items: center; gap: .35em; font-size: .84rem; font-weight: 600; padding: .35em .8em; border-radius: 999px; background: var(--jl-chip-bg); }
+.jl-badge-guaranteed { background: var(--jl-good); color: #fff; }
+.jl-badge-sold-out { background: transparent; color: var(--jl-warn); box-shadow: inset 0 0 0 1.5px var(--jl-warn); }
+.jl-dep-action { font-weight: 600; white-space: nowrap; }
+.jl-is-closed .jl-dep-day, .jl-is-closed .jl-dep-name { color: var(--jl-soft); }
+@media (max-width: 760px) {
+	.jl-dep { grid-template-columns: 5rem minmax(0, 1fr); }
+	.jl-dep-status, .jl-dep-action { grid-column: 2; }
+}
+
+/* itinerary */
+.jl-days { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--jl-line); }
+.jl-day { border-bottom: 1px solid var(--jl-line); }
+.jl-day summary { display: grid; grid-template-columns: 5rem 1fr auto; gap: 1rem; align-items: baseline; padding: 1rem .25rem; cursor: pointer; list-style: none; }
+.jl-day summary::-webkit-details-marker { display: none; }
+.jl-day summary::after { content: "+"; font-size: 1.4rem; line-height: 1; transition: transform .3s; }
+.jl-day details[open] summary::after { transform: rotate(45deg); }
+.jl-day-no { font-size: .8rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--jl-soft); }
+.jl-day-title { font-size: 1.2rem; font-weight: 600; }
+.jl-day-body { padding: 0 .25rem 1.25rem 6rem; }
+.jl-day-meta { display: flex; flex-wrap: wrap; gap: .5rem; }
+.jl-day-meta span { font-size: .86rem; padding: .3em .8em; border-radius: 999px; background: var(--jl-chip-bg); }
+@media (max-width: 600px) { .jl-day summary { grid-template-columns: 4rem 1fr auto; } .jl-day-body { padding-left: .25rem; } }
+
+/* facts and lists */
+.jl-trip-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: 1rem; margin: 0; }
+.jl-fact { display: grid; gap: .2rem; margin: 0; }
+.jl-fact dt { font-size: .76rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--jl-soft); }
+.jl-fact dd { margin: 0; display: grid; gap: .25rem; }
+.jl-fact-value { font-size: 1.4rem; font-weight: 600; }
+.jl-fact-note { font-size: .86rem; color: var(--jl-soft); }
+.jl-meter { display: flex; gap: 3px; }
+.jl-meter i { width: 18px; height: 5px; border-radius: 3px; background: var(--jl-line); }
+.jl-meter i.on { background: currentColor; }
+.jl-trip-list { list-style: none; margin: 0; padding: 0; display: grid; }
+.jl-trip-list li { display: grid; grid-template-columns: 22px 1fr; gap: .7rem; padding: .7rem 0; border-bottom: 1px solid var(--jl-line); }
+.jl-trip-list svg { margin-top: .25em; }
+.jl-trip-list[data-which="excluded"] svg { color: var(--jl-warn); }
+.jl-trip-list:not([data-which="excluded"]) svg { color: var(--jl-good); }
+
+/* enquiry form */
+.jl-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 1rem 1.25rem; }
+.jl-wide { grid-column: 1 / -1; }
+.jl-field { display: grid; gap: .35rem; margin: 0; }
+.jl-field label { font-weight: 600; font-size: .92rem; }
+.jl-optional { font-weight: 400; color: var(--jl-soft); }
+.jl-field input:not([type="checkbox"]), .jl-field select, .jl-field textarea { font: inherit; width: 100%; box-sizing: border-box; min-height: 48px; padding: .7em .9em; border-radius: var(--jl-radius); border: 1.5px solid var(--jl-line); background: transparent; color: inherit; }
+.jl-field textarea { min-height: 7rem; resize: vertical; }
+.jl-field [aria-invalid="true"] { border-color: var(--jl-warn); }
+.jl-error { font-size: .86rem; font-weight: 600; color: var(--jl-warn); }
+.jl-error:empty { display: none; }
+.jl-consent { grid-template-columns: auto 1fr; align-items: start; column-gap: .6rem; }
+.jl-consent input { width: 20px; height: 20px; margin: .1rem 0 0; }
+.jl-consent .jl-error { grid-column: 1 / -1; }
+.jl-actions { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin: 0; }
+.jl-submit { cursor: pointer; }
+.jl-submit[disabled] { opacity: .6; cursor: progress; }
+.jl-status { font-size: .92rem; }
+.jl-sent { padding: 1rem 0; }
+.jl-sent-title { font-size: 1.3rem; font-weight: 600; }

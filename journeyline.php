@@ -3,7 +3,7 @@
  * Plugin Name:       Journeyline
  * Plugin URI:        https://github.com/cosmicmarkhor/journeyline
  * Description:       Trips, departures, destinations and trip styles for small travel companies. Works with any modern WordPress theme.
- * Version:           0.1.0
+ * Version:           0.2.0
  * Requires at least: 6.7
  * Requires PHP:      8.1
  * Author:            IngotKit
@@ -11,6 +11,7 @@
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       journeyline
  * Domain Path:       /languages
+ * Update URI:        https://github.com/cosmicmarkhor/journeyline
  *
  * @package Journeyline
  */
@@ -19,7 +20,7 @@ namespace Journeyline;
 
 defined( 'ABSPATH' ) || exit;
 
-const VERSION = '0.1.0';
+const VERSION = '0.2.0';
 const FILE    = __FILE__;
 define( __NAMESPACE__ . '\DIR', plugin_dir_path( __FILE__ ) );
 define( __NAMESPACE__ . '\URL', plugin_dir_url( __FILE__ ) );

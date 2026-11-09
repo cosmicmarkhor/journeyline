@@ -18,7 +18,7 @@ final class Plugin {
 	 * Load every part and hook it up. Runs once, when the plugin file loads.
 	 */
 	public static function boot() {
-		foreach ( array( 'settings', 'content-types', 'fields', 'departures' ) as $part ) {
+		foreach ( array( 'settings', 'content-types', 'fields', 'departures', 'trip-editor', 'enquiries', 'blocks', 'schema', 'updater' ) as $part ) {
 			require_once DIR . 'includes/class-' . $part . '.php';
 		}
 		add_action( 'init', array( __CLASS__, 'load_textdomain' ), 1 );
@@ -26,6 +26,11 @@ final class Plugin {
 		Content_Types::init();
 		Fields::init();
 		Departures::init();
+		Trip_Editor::init();
+		Enquiries::init();
+		Blocks::init();
+		Schema::init();
+		Updater::register( FILE, 'cosmicmarkhor/journeyline', VERSION );
 	}
 
 	/**
