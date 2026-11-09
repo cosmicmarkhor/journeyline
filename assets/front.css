@@ -52,11 +52,13 @@
 .jl-badge { display: inline-flex; align-items: center; gap: .35em; font-size: .84rem; font-weight: 600; padding: .35em .8em; border-radius: 999px; background: var(--jl-chip-bg); }
 .jl-badge-guaranteed { background: var(--jl-good); color: #fff; }
 .jl-badge-sold-out { background: transparent; color: var(--jl-warn); box-shadow: inset 0 0 0 1.5px var(--jl-warn); }
+.jl-dep-actions { display: flex; flex-direction: column; align-items: flex-end; gap: .25rem; }
 .jl-dep-action { font-weight: 600; white-space: nowrap; }
 .jl-is-closed .jl-dep-day, .jl-is-closed .jl-dep-name { color: var(--jl-soft); }
 @media (max-width: 760px) {
 	.jl-dep { grid-template-columns: 5rem minmax(0, 1fr); }
-	.jl-dep-status, .jl-dep-action { grid-column: 2; }
+	.jl-dep-status, .jl-dep-actions { grid-column: 2; }
+	.jl-dep-actions { flex-direction: row; flex-wrap: wrap; align-items: center; gap: .25rem 1.25rem; }
 }
 
 /* itinerary */

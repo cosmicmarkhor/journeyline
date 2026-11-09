@@ -97,7 +97,17 @@ foreach ( $rows as $month => $list ) {
 		echo '<span class="jl-dep-note">' . esc_html( $note ) . '</span></div>';
 		$action = $r['st']['bookable'] ? __( 'Ask about this date', 'journeyline' ) : ( 'sold-out' === $r['st']['key'] ? __( 'Join the waitlist', 'journeyline' ) : __( 'Ask about places', 'journeyline' ) );
 		$url    = add_query_arg( array( 'trip' => $r['tid'], 'departure' => $r['id'] ), get_permalink( $r['tid'] ) ) . '#enquire';
+		echo '<div class="jl-dep-actions">';
 		echo '<a class="jl-dep-action" href="' . esc_url( $url ) . '" data-jl-departure="' . esc_attr( (string) $r['id'] ) . '">' . esc_html( apply_filters( 'journeyline_departure_action_label', $action, $r['id'], $r['st'] ) ) . '</a>';
+		/**
+		 * After a departure's main link: add-ons can add another way to ask, for example WhatsApp.
+		 *
+		 * @param int   $departure Departure ID.
+		 * @param int   $trip      Trip ID.
+		 * @param array $status    Status from Departures::status().
+		 */
+		do_action( 'journeyline_departure_after_action', (int) $r['id'], (int) $r['tid'], $r['st'] );
+		echo '</div>';
 		echo '</li>';
 	}
 	echo '</ul>';
