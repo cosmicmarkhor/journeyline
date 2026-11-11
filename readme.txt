@@ -4,7 +4,7 @@ Tags: travel, tours, trips, departures, itinerary
 Requires at least: 6.7
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.3.0
+Stable tag: 0.3.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,6 +24,9 @@ Journeyline gives small travel companies everything they need to show their trip
 Journeyline is accessible, translation-ready and collects no data about your visitors.
 
 == Changelog ==
+
+= 0.3.1 =
+* Departures block: show only one destination (or let the theme choose it for a page).
 
 = 0.3.0 =
 * A photo for each destination and trip style, chosen from the media library.

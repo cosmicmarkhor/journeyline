@@ -12,7 +12,7 @@ use Journeyline\Departures;
 defined( 'ABSPATH' ) || exit;
 
 $only  = ( 'all' !== $attrs['scope'] && $trip ) ? $trip : 0;
-$ids   = Departures::upcoming( array( 'trip' => $only, 'limit' => (int) $attrs['limit'] ) );
+$ids   = Departures::upcoming( array( 'trip' => $only, 'limit' => (int) $attrs['limit'], 'destination' => (string) apply_filters( 'journeyline_departures_destination', $attrs['destination'] ?? '', $attrs ) ) );
 $group = ! empty( $attrs['groupByMonth'] );
 
 if ( ! $ids ) {

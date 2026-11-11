@@ -78,13 +78,27 @@ final class Departures {
 	 * @return int[] Departure IDs.
 	 */
 	public static function upcoming( $args = array() ) {
-		$args  = wp_parse_args( $args, array( 'trip' => 0, 'limit' => -1, 'seats_only' => false ) );
+		$args  = wp_parse_args( $args, array( 'trip' => 0, 'limit' => -1, 'seats_only' => false, 'destination' => '' ) );
 		$meta  = array(
 			'relation' => 'AND',
 			array( 'key' => 'jrnl_start', 'value' => self::today(), 'compare' => '>=', 'type' => 'DATE' ),
 		);
 		if ( $args['trip'] ) {
 			$meta[] = array( 'key' => 'jrnl_trip_id', 'value' => (int) $args['trip'], 'compare' => '=', 'type' => 'NUMERIC' );
+		}
+		if ( ! $args['trip'] && $args['destination'] ) {
+			$trips = get_posts(
+				array(
+					'post_type'      => Content_Types::TRIP,
+					'posts_per_page' => -1,
+					'fields'         => 'ids',
+					'tax_query'      => array( array( 'taxonomy' => Content_Types::DESTINATION, 'field' => 'slug', 'terms' => sanitize_title( $args['destination'] ), 'include_children' => true ) ), // phpcs:ignore WordPress.DB.SlowDBQuery
+				)
+			);
+			if ( ! $trips ) {
+				return array();
+			}
+			$meta[] = array( 'key' => 'jrnl_trip_id', 'value' => $trips, 'compare' => 'IN', 'type' => 'NUMERIC' );
 		}
 		$ids = get_posts(
 			array(

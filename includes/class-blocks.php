@@ -34,7 +34,7 @@ final class Blocks {
 				'title' => __( 'Departures', 'journeyline' ),
 				'desc'  => __( 'Upcoming departure dates with status, seats and price. On a trip page it shows that trip only.', 'journeyline' ),
 				'icon'  => 'calendar-alt',
-				'attrs' => array( 'scope' => array( 'string', 'auto' ), 'limit' => array( 'number', 0 ), 'groupByMonth' => array( 'boolean', false ), 'showFilters' => array( 'boolean', false ) ),
+				'attrs' => array( 'scope' => array( 'string', 'auto' ), 'destination' => array( 'string', '' ), 'limit' => array( 'number', 0 ), 'groupByMonth' => array( 'boolean', false ), 'showFilters' => array( 'boolean', false ) ),
 			),
 			'itinerary'    => array(
 				'title' => __( 'Itinerary', 'journeyline' ),
